@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
 
 public class UIPlateau {
 
-    final static String PLATEAU = "/Plateau2.jpg";
-    final static String COORDONNEES = "/CoordonneesCases.csv";
+    final static String PLATEAU = "image/Plateau2.jpg";
+    final static String COORDONNEES = "image/CoordonneesCases.csv";
     private static final int NOMBRE_CASES = 40;
     private static final String REGEX_COORDONNEES = "[0-9]+(;[0-9]+){4}";
     private HashMap<Integer, UICase> cases = new HashMap<Integer, UICase>();
@@ -31,14 +31,14 @@ public class UIPlateau {
     }
 
     private void initImagesPions() {
-        imagesPions.put("Chien", new Image(getClass().getResourceAsStream("/Chien.png")));
-        imagesPions.put("Bateau", new Image(getClass().getResourceAsStream("/Bateau.png")));
-        imagesPions.put("Brouette", new Image(getClass().getResourceAsStream("/Brouette.png")));
-        imagesPions.put("Chapeau", new Image(getClass().getResourceAsStream("/Chapeau.png")));
-        imagesPions.put("Chat", new Image(getClass().getResourceAsStream("/Chat.png")));
-        imagesPions.put("Chaussure", new Image(getClass().getResourceAsStream("/Chaussure.png")));
-        imagesPions.put("DeACoudre", new Image(getClass().getResourceAsStream("/DeACoudre.png")));
-        imagesPions.put("Voiture", new Image(getClass().getResourceAsStream("/Voiture.png")));
+        imagesPions.put("Chien", new Image(getClass().getResourceAsStream("image/Chien.png")));
+        imagesPions.put("Bateau", new Image(getClass().getResourceAsStream("image/Bateau.png")));
+        imagesPions.put("Brouette", new Image(getClass().getResourceAsStream("image/Brouette.png")));
+        imagesPions.put("Chapeau", new Image(getClass().getResourceAsStream("image/Chapeau.png")));
+        imagesPions.put("Chat", new Image(getClass().getResourceAsStream("image/Chat.png")));
+        imagesPions.put("Chaussure", new Image(getClass().getResourceAsStream("image/Chaussure.png")));
+        imagesPions.put("DeACoudre", new Image(getClass().getResourceAsStream("image/DeACoudre.png")));
+        imagesPions.put("Voiture", new Image(getClass().getResourceAsStream("image/Voiture.png")));
     }
 
     public Image getImage() {

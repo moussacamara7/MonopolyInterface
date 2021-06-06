@@ -1,34 +1,22 @@
 package application;
 
 
-import java.util.ArrayList;
-
-import application.event.EventAchatTerrain;
-import application.event.EventChoixJoueur;
-import application.event.EventGererMaison;
-import application.event.EventJouer;
-import application.event.EventPasser;
+import application.event.*;
+import application.ui.UIPlateau;
 import javafx.application.Application;
 import javafx.collections.ListChangeListener;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import application.ui.UIPlateau;
+
+import java.util.ArrayList;
 
 
 public class Monopoly extends Application {
@@ -40,39 +28,35 @@ public class Monopoly extends Application {
     public final static String ACTION_JOUER = "Lancer les dés";
 
 
-
     private final ArrayList<ToggleButton> tabBoutonsJoueurs = new ArrayList<>();
-
+    /**
+     * YL : la liste des joueurs est représentée par une liste de noms, ainsi que la liste des pions.
+     * --> A modifier !!
+     */
+    private final ArrayList<String> listeJoueurs = new ArrayList<>();
+    private final ArrayList<String> listePions = new ArrayList<>();
+    private final FenetreTerrain fenetreTerrain = new FenetreTerrain();
     private UIPlateau uiPlateau;
     private Canvas grillePane;
     private Button bAvancer;
     private TextField tfDe1;
     private TextField tfDe2;
     private Label messageFooter;
-
-
     /**
      * YL : ListView peut contenir n'importe quel type d'objet. Pour l'instant, ce sont des String
      * --> A modifier !!
      */
     private ListView<String> proprietesJoueurCourant;
-
-    /**
-     * YL : la liste des joueurs est représentée par une liste de noms, ainsi que la liste des pions.
-     * --> A modifier !!
-     */
-    private final ArrayList<String>	listeJoueurs = new ArrayList<>();
-    private final ArrayList<String>	listePions = new ArrayList<>();
     private String joueurCourant;
-
-    private	int	terrainSelectionne = -1;
+    private int terrainSelectionne = -1;
     private TextField tfPorteMonnaie;
+    private int nbDoubles = 0;
 
-    private	int		nbDoubles = 0;
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-    private final FenetreTerrain fenetreTerrain = new FenetreTerrain();
-
-    public ListView<String>  getZoneProprietes() {
+    public ListView<String> getZoneProprietes() {
         return proprietesJoueurCourant;
     }
 
@@ -83,8 +67,6 @@ public class Monopoly extends Application {
     public ArrayList<String> getListeJoueurs() {
         return listeJoueurs;
     }
-
-
 
     public TextField getTfValeurDe1() {
         return tfDe1;
@@ -106,7 +88,6 @@ public class Monopoly extends Application {
         return grillePane;
     }
 
-
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -124,12 +105,10 @@ public class Monopoly extends Application {
             initFooter(root);
 
 
-
-
             uiPlateau.dessiner(grillePane);
 
             primaryStage.show();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -158,7 +137,6 @@ public class Monopoly extends Application {
         root.setBottom(footer);
     }
 
-
     private void initZonePropriete(VBox panneauDroit) {
         panneauDroit.getChildren().add(new Label(" "));
 
@@ -183,7 +161,7 @@ public class Monopoly extends Application {
 
         proprietesJoueurCourant.setOnMouseClicked(arg0 -> {
             terrainSelectionne = proprietesJoueurCourant.getSelectionModel().getSelectedIndex();
-            System.out.println("Item : "+proprietesJoueurCourant.getSelectionModel().getSelectedIndex());
+            System.out.println("Item : " + proprietesJoueurCourant.getSelectionModel().getSelectedIndex());
         });
 
         panneauDroit.getChildren().add(proprietesJoueurCourant);
@@ -219,9 +197,9 @@ public class Monopoly extends Application {
 
     private void initDes(VBox panneau) {
         Label des = new Label("Dés :");
-        tfDe1 = new TextField ();
+        tfDe1 = new TextField();
         tfDe1.setPrefColumnCount(2);
-        tfDe2 = new TextField ();
+        tfDe2 = new TextField();
         tfDe2.setPrefColumnCount(2);
         HBox hb = new HBox();
 
@@ -272,10 +250,6 @@ public class Monopoly extends Application {
         uiPlateau = new UIPlateau(/* ? */);
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     public void DialogAction(String message, boolean erreur) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Achat d'un terrain");
@@ -283,8 +257,7 @@ public class Monopoly extends Application {
 
         if (erreur) {
             alert.setHeaderText("Tu ne peux pas faire cette action !");
-        }
-        else {
+        } else {
             alert.setAlertType(AlertType.INFORMATION);
             alert.setHeaderText("Achat effectué");
         }

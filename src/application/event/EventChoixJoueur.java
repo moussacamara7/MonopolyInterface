@@ -17,11 +17,11 @@ public class EventChoixJoueur implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent e) {
         if (e.getSource() instanceof ToggleButton) {
-            ToggleButton b = (ToggleButton)e.getSource();
+            ToggleButton b = (ToggleButton) e.getSource();
             String j = (String) b.getUserData();
 
             monopoly.setJoueurCourant(j);
-            System.out.println(monopoly.getJoueurCourant()+" doit jouer");
+            System.out.println(monopoly.getJoueurCourant() + " doit jouer");
 
             monopoly.getZoneProprietes().getItems().clear();
         }
